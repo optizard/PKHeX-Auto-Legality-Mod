@@ -282,10 +282,12 @@ namespace PKHeX.WinForms.Controls
             }
             if (report.Contains("Non japanese Mew from Faraway Island. Unreleased event."))
             {
+                bool shiny = pk.IsShiny;
                 pk.Language = 1;
                 pk.FatefulEncounter = true;
                 pk.Nickname = PKX.GetSpeciesNameGeneration(pk.Species, pk.Language, 3);
-                pk.PID = PKX.GetRandomPID(pk.Species, pk.Gender, pk.Version, pk.Nature, pk.Format, (uint)(pk.AbilityNumber * 0x10001)); 
+                pk.PID = PKX.GetRandomPID(pk.Species, pk.Gender, pk.Version, pk.Nature, pk.Format, (uint)(pk.AbilityNumber * 0x10001));
+                if (shiny) pk.SetShinyPID();
                 LegalityAnalysis recheckLA = new LegalityAnalysis(pk);
                 updatedReport = recheckLA.Report(false);
                 report = updatedReport;
